@@ -17,6 +17,10 @@ if (isset($_SESSION['user'])) {
 
 <h2>Iniciar sesión</h2>
 
+<?php if (isset($_GET['error'])): ?>
+    <p style="color:red;">Credenciales inválidas</p>
+<?php endif; ?>
+
 <form method="POST" action="auth/login.php">
     <label>Email</label><br>
     <input type="email" name="email" required><br><br>
