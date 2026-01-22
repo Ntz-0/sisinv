@@ -1,26 +1,31 @@
 <?php
+include("../auth/proteger.php");
 include("../config/conexion.php");
-$result = $conn->query("SELECT * FROM productos");
+
+$sql = "
+SELECT m.*, p.nombre AS producto
+FROM movimientos m
+JOIN productos p ON m.producto_id = p.id
+ORDER BY m.fecha DESC
+";
+
+$result = $conn->query($sql);
 ?>
 
 <table border="1">
 <tr>
     <th>Producto</th>
-    <th>Stock</th>
-    <th>Estado</th>
+    <th>Tipo</th>
+    <th>Cantidad</th>
+    <th>Fecha</th>
 </tr>
 
-<?php while($p = $result->fetch_assoc()): ?>
+<?php while($m = $result->fetch_assoc()): ?>
 <tr>
-    <td><?= $p['nombre'] ?></td>
-    <td><?= $p['stock'] ?></td>
-    <td>
-        <?php if ($p['stock'] <= $p['stock_minimo']): ?>
-            <span style="color:red;">Stock bajo</span>
-        <?php else: ?>
-            OK
-        <?php endif; ?>
-    </td>
+    <td><?= $m['producto'] ?></td>
+    <td><?= $m['tipo'] ?></td>
+    <td><?= $m['cantidad'] ?></td>
+    <td><?= $m['fecha'] ?></td>
 </tr>
 <?php endwhile; ?>
 </table>
