@@ -26,9 +26,7 @@ $result = $conn->query($sql);
     <td><?= $m['tipo'] ?></td>
     <td><?= $m['cantidad'] ?></td>
     <td><?= $m['fecha'] ?></td>
-</tr>
-
-<td>
+    <td>
     <a href="editar.php?id=<?= $p['id'] ?>">Editar</a>
 
     <?php if ($_SESSION['user']['rol'] == 'admin'): ?>
@@ -38,6 +36,7 @@ $result = $conn->query($sql);
           </a>
     <?php endif; ?>
 </td>
+</tr>
 
 <?php endwhile; ?>
 </table>
