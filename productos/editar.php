@@ -33,3 +33,23 @@ $stmt = $conn->prepare("SELECT * FROM productos WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $producto = $stmt->get_result()->fetch_assoc();
+?>
+
+
+<h3>Editar producto</h3>
+
+<form method="POST">
+    <label>Nombre</label><br>
+    <input type="text" name="nombre"
+           value="<?= $producto['nombre'] ?>" required><br><br>
+
+    <label>Descripción</label><br>
+    <textarea name="descripcion"><?= $producto['descripcion'] ?></textarea><br><br>
+
+    <label>Stock mínimo</label><br>
+    <input type="number" name="stock_minimo"
+           value="<?= $producto['stock_minimo'] ?>" required><br><br>
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
