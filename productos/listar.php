@@ -27,5 +27,17 @@ $result = $conn->query($sql);
     <td><?= $m['cantidad'] ?></td>
     <td><?= $m['fecha'] ?></td>
 </tr>
+
+<td>
+    <a href="editar.php?id=<?= $p['id'] ?>">Editar</a>
+
+    <?php if ($_SESSION['user']['rol'] == 'admin'): ?>
+        | <a href="eliminar.php?id=<?= $p['id'] ?>"
+             onclick="return confirm('¿Eliminar producto?')">
+             Eliminar
+          </a>
+    <?php endif; ?>
+</td>
+
 <?php endwhile; ?>
 </table>
