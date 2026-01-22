@@ -1,16 +1,21 @@
 <?php
+include("../auth/proteger.php");
 include("../config/conexion.php");
 
 if ($_POST) {
-    $nombre = $_POST['nombre'];
-    $desc   = $_POST['descripcion'];
-    $stock  = $_POST['stock'];
-    $min    = $_POST['stock_minimo'];
+    $stmt = $conn->prepare(
+        "INSERT INTO productos (nombre, descripcion, stock, stock_minimo)
+         VALUES (?, ?, ?, ?)"
+    );
 
-    $sql = "INSERT INTO productos (nombre, descripcion, stock, stock_minimo)
-            VALUES ('$nombre','$desc',$stock,$min)";
-    $conn->query($sql);
+    $stmt->bind_param(
+        "ssii",
+        $_POST['nombre'],
+        $_POST['descripcion'],
+        $_POST['stock'],
+        $_POST['stock_minimo']
+    );
 
+    $stmt->execute();
     header("Location: listar.php");
 }
-?>
